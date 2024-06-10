@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Add a New ToDo Item</h1>
+    <form id="todo-form">
+        <label for="title">ID:</label><br>
+        <input type="text" id="Idnum" name="title"><br><br>
+        <button type="button" onclick="fetchTodo()">Get Todo Form</button>
+        
+        
+        <label for="title">dept:</label><br>
+        <input type="text" id="title" name="title"><br><br>
+        <label for="courseNum">courseNum:</label><br>
+        <input type="text" id="courseNum" name="title"><br><br>
+        <label for="courseName">courseName:</label><br>
+        <input type="text" id="courseName" name="title"><br><br>
+        <label for="instructor">instructor:</label><br>
+        <input type="text" id="instructor" name="title"><br><br>
+        <label for="startDate">startDate:</label><br>
+        <input type="text" id="startDate" name="title"><br><br>
+        <label for="numDays">numDays:</label><br>
+        <input type="text" id="numDays" name="title"><br><br>
+        <button type="button" onclick="updateTodo()">Update</button>
+    </form>
+    <p id="message"></p>
+
+    <script>
+        function fetchTodo(){
+            const IdNumber = document.getElementById("Idnum").value
+            fetch(`https://jsonplaceholder.typicode.com/todos/${IdNumber}`) 
+                .then(response => response.json()) 
+                .then(data => { 
+                // and put returned data in form for editing 
+                let department =  
+                    document.getElementById("title"); 
+                    title.value = data.dept; 
+                
+                let courseNumber =  
+                    document.getElementById("courseNum"); 
+                    courseNumber.value = data.courseNum; 
+                
+                let courseName =  
+                    document.getElementById("courseName"); 
+                    courseName.value = data.courseName;
+                    
+                let instructor =  
+                    document.getElementById("instructor"); 
+                    instructor.value = data.instructor; 
+                
+                let startDate =  
+                    document.getElementById("startDate"); 
+                    startDate.value = data.startDate; 
+
+                let numDays =  
+                    document.getElementById("numDays"); 
+                    numDays.value = data.numDays; 
+
+                document.getElementById('Idnum').disabled = true
+            }); 
+
+        }
+
+        function updateTodo(){
+            const IdNumber = document.getElementById("Idnum").value
+            let bodyData = { 
+                dept: document.getElementById("title").value, 
+                courseNum: document.getElementById("courseNum").value, 
+                courseName: document.getElementById("courseName").value, 
+                instructor: document.getElementById("instructor").value,
+                startDate: document.getElementById("startDate").value,
+                numDays: document.getElementById("numDays").value,
+        
+   } 
+   
+   fetch(`https://jsonplaceholder.typicode.com/todos/${IdNumber}`, { 
+      method: "PUT", 
+      body: JSON.stringify(bodyData), 
+      headers: {"Content-type":  
+                "application/json; charset=UTF-8"} 
+   }) 
+   .then(response => response.json())  
+   
+   .then(json => { 
+        // If the PUT is successful, display a message 
+       let confirmationMessage =  
+          document.getElementById("message"); 
+       confirmationMessage.innerHTML = "YAY - Student updated"; 
+    }) 
+    .catch(err => { 
+        // If the PUT returns an error, display a message 
+       let confirmationMessage =  
+          document.getElementById("message"); 
+       confirmationMessage.innerHTML = "Unexpected error"; 
+  }); 
+} 
+
+    </script>
+</body>
+</html>
