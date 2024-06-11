@@ -26,6 +26,8 @@
         <label for="numDays">numDays:</label><br>
         <input type="text" id="numDays" name="title"><br><br>
         <button type="button" onclick="updateTodo()">Update</button>
+
+        <button type="button" onclick="CancelButtn()">Cancel</button>
     </form>
     <p id="message"></p>
 
@@ -98,6 +100,10 @@
        confirmationMessage.innerHTML = "Unexpected error"; 
   }); 
 } 
+
+function CancelButtn(){
+    window.location.href = 'index.html';
+}
 
     </script>
 </body>
